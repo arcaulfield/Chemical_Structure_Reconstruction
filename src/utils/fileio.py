@@ -30,15 +30,17 @@ def sdf_to_desc(file_name):
     # save data frame
     calc.pandas(mols).to_csv(os.path.join(data_path, "mordred_files", file_name + ".csv"))
 
-
-def sdf_to_fp():
-    molecules = Chem.SDMolSupplier(sys.argv[1])
-
+def sdf_to_fp(filename):
+    molecules = Chem.SDMolSupplier(os.path.join(data_path, file_name + ".sdf"))
+    mols=[]
     for mol in molecules:
         if mol:
-            # fp = RDKFingerprint(mol, fpSize=2048)
+            #fp = RDKFingerprint(mol, fpSize=2048)
             fp = RDKFingerprint(mol, fpSize=2048, minPath=1, maxPath=7, nBitsPerHash=2, useHs=1)
-            print(str(fp.ToBase64()) + "\t" + str(mol.GetProp("_Name")))
+            mols.append([fp.ToBase64(),str(mol.GetProp("_Name"))])
+            #print(str(fp.ToBase64()) + "\t" + str(mol.GetProp("_Name")))
+    np.asarray(mols)
+    pd.DataFrame(mols).to_csv(os.path.join(data_path, "fp", file_name + ".csv"))
 
 
 def sdf_to_inchikey():
