@@ -11,7 +11,7 @@ import os
 def sdf_to_desc(file_name):
     freeze_support()
 
-    sdf = Chem.SDMolSupplier(os.path.join(data_path, file_name + ".sdf"))
+    sdf = Chem.SDMolSupplier(os.path.join("../", data_path, file_name + ".sdf"))
     mols = []
 
     for mol in sdf:

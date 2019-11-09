@@ -2,11 +2,12 @@ import numpy as np
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
+from src.data_processing import clean_mordred_data
 
 
-def run(X, y):
-
-    total_acc = 0
+def run():
+    X, y = clean_mordred_data()
+    total_acc = np.zeros(shape=(X.shape[0]))
 
     kf = KFold(n_splits=5)
     for i, (train_index, valid_index) in enumerate(kf.split(X)):
@@ -20,7 +21,7 @@ def run(X, y):
         y_pred = mor.predict(x_valid)
 
         acc = accuracy_score(y_valid, y_pred)
-        print(f"Iteration {i+1}: Accuracy = {acc * 100}%")
+        print(f"Iteration {i+1}: Accuracy = {acc}%")
         total_acc = total_acc + acc
 
     print(f"Average accuracy = {total_acc/kf.get_n_splits()}")
