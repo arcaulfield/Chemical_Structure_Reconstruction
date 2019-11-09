@@ -6,13 +6,12 @@ import sys
 from rdkit.Chem.rdmolops import *
 from src.config import data_path
 import os
-import pandas as pd
-import numpy as np
+
 
 def sdf_to_desc(file_name):
     freeze_support()
 
-    sdf = Chem.SDMolSupplier(os.path.join(data_path, file_name + ".sdf"))
+    sdf = Chem.SDMolSupplier(os.path.join("../", data_path, file_name + ".sdf"))
     mols = []
 
     for mol in sdf:
