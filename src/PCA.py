@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[68]:
+# In[1]:
 
 
 import matplotlib.pyplot as plt
@@ -12,14 +12,14 @@ from sklearn import preprocessing
 from sklearn.decomposition import PCA
 
 
-# In[69]:
+# In[2]:
 
 
 df = pd.read_csv('descriptors.csv')
 df.shape
 
 
-# In[70]:
+# In[3]:
 
 
 # Separating out & normalizing the features
@@ -30,7 +30,7 @@ x = preprocessing.scale(x)
 y = df.iloc[:,0].values
 
 
-# In[71]:
+# In[5]:
 
 
 # features = list(df.columns)
@@ -39,7 +39,7 @@ targets = list(df['ID'])
 #targets
 
 
-# In[72]:
+# In[6]:
 
 
 pca = PCA(n_components=2)
@@ -81,13 +81,13 @@ principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2'])
         #0.02704538,  0.02453726])
 
 
-# In[73]:
+# In[7]:
 
 
 finalDf = pd.concat([principalDf, df[['ID']]], axis = 1)
 
 
-# In[7]:
+# In[13]:
 
 
 ### PLOT: 2 Component PCA ###
@@ -106,7 +106,7 @@ for target in targets:
 ax.grid()
 
 
-# In[74]:
+# In[27]:
 
 
 ### Variance explained by each component ###
@@ -114,7 +114,7 @@ pca.explained_variance_ratio_
     # OUTPUT: array([ 0.23354774,  0.11475039])
 
 
-# In[223]:
+# In[28]:
 
 
 ### FUNCTION to generate heat map of each PC explained by descriptors ###
@@ -142,19 +142,49 @@ d = [a,b,c]
 heat_map(d, 0, 1)
 
 
-# In[153]:
+# In[29]:
 
 
-# How much each feature contributes to each component
+### How much each feature contributes to each component
 pca.components_
 a = np.asarray(pca.components_)
 a.shape
 #pd.DataFrame(pca.components_).to_csv("bla.csv")
 
 
-# In[154]:
+# In[39]:
 
 
+#### FUNCTION: Thresholding & Displaying the Data
+    # c: array where rows = components, columns = descriptors, entries = contribution of descriptor to respective component
+def data_threshold(c,n, min, max):
+    threshold = n
+    d = c[1,:].astype(float) + c[2,:].astype(float)
+    d=d.reshape(1,1403)
+    d = np.vstack((d, d, d))
+    e=c[d > n]
+    e=np.asarray(e)
+    t = e.shape[0]
+
+    # number of descriptors that respect the threshold
+    t= t/3
+    print(t)
+
+    f=(e[0:int(t)])
+    g=(e[int(t):int(2*t)])
+    h=(e[int(2*t):int(3*t)])
+
+        # creating array with only columns from c that respect threshold!
+    final = np.vstack((f, g, h))
+    ###print(final.shape)
+    pd.DataFrame(final).to_csv("descript_"+str(n)+".csv")
+    heat_map(final,min,max)
+
+
+# In[41]:
+
+
+#### TEST: Thresholding & Displaying Data
 features = list(df.columns)
 features.pop(0)
 features
@@ -164,37 +194,5 @@ b.append(a[0])
 b.append(a[1])
 c = np.asarray(b)
 c.shape
-
-
-# In[156]:
-
-
-# # Thresholding the data
-
-threshold = 0.08
-d = c[1,:].astype(float) + c[2,:].astype(float)
-d=d.reshape(1,1403)
-d = np.vstack((d, d, d))
-e=c[d > threshold]
-e=np.asarray(e)
-t = e.shape[0]
-
-# number of descriptors that respect the threshold
-t= t/3
-print(t)
-
-f=(e[0:int(t)])
-g=(e[int(t):int(2*t)])
-h=(e[int(2*t):int(3*t)])
-
-    # creating array with only columns from c that respect threshold!
-final = np.vstack((f, g, h))
-print(final.shape)
-pd.DataFrame(final).to_csv("descript_"+str(threshold)+".csv")
-
-
-# In[227]:
-
-
-heat_map(final, 0, 0.05)
+data_threshold(c, 0.08,0,0.08)
 
