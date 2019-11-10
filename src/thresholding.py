@@ -13,16 +13,19 @@ def find_threshold():
     x_output = run_multi_output_regressor(X, y)
     y_output = np.array([X.shape[1]])
 
-    n = 0.172
-
-    for i in range(2000):
+    n = 0
+    i = 1
+    x_size = X.shape[1]
+    while x_size > 0 and n < 2000000:
         print("Iteration " + str(i))
         sel = VarianceThreshold(threshold=n)
         train_x = sel.fit_transform(X)
-        print("Removed descriptors with variance less than " + str(n) + ". X has size: " + str(train_x.shape[1]))
+        x_size = train_x.shape[1]
+        print("Removed descriptors with variance less than " + str(n) + ". X has size: " + str(x_size))
         x_output = np.vstack((x_output, run_multi_output_regressor(train_x, y)))
-        y_output = np.vstack((y_output, train_x.shape[1]))
-        n = n + 0.001
+        y_output = np.vstack((y_output, x_size))
+        n = (n + 1.2*(n+0.25))
+        i = i + 1
 
     pd.DataFrame(x_output).to_csv(os.path.join(result_path, "x_output.csv"))
     pd.DataFrame(y_output).to_csv(os.path.join(result_path, "y_output.csv"))

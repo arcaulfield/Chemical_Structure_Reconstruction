@@ -18,6 +18,7 @@ def clean_mordred_data():
     df = df.drop(df[df['SpAbs_A'].str.contains('multiple', na=False)].index.tolist())
     df = df.drop(df[df['AATS8dv'].str.contains('invalid', na=False)].index.tolist())
     df = df.drop(df[df['ATSC0c'].str.contains('gasteiger', na=False)].index.tolist())
+    df = df.drop(112)
     df = df.apply(pd.to_numeric, errors='coerce')
     df = df.dropna(axis=1)
     df = df.dropna(axis=0)
@@ -29,4 +30,3 @@ def clean_mordred_data():
     mordred_y = mordred_y.drop('nBridgehead', axis=1)
 
     return mordred_x.to_numpy()[:-1], mordred_y.to_numpy()[:-1]
-
