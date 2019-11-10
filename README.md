@@ -20,9 +20,9 @@ We then used a multiple output linear regression model. Our model trains using a
 
 
 ## Results
-
+Using less than around 60 Mordred desciptors, the model poorly predicts all 17 core structural descriptors. 
 <p align="center">
-<img src="https://github.com/arcaulfield/Chemical_Structure_Reconstruction/blob/master/img/results.png" width="400"/>
+<img src="https://github.com/arcaulfield/Chemical_Structure_Reconstruction/blob/master/img/results.png" width="600"/>
 </p>
 
 
