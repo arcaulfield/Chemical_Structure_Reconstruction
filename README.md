@@ -2,7 +2,10 @@
 ## The Task
 We developped an algorithm that can identify the least amount of Mordred descriptors needed to reverse engineer chemical structures. 
 ## Our Approach
-We identifed 17 core structural Mordred descriptors that would allow a researcher to effectively deduce the structure of a molecule. Without these descriptors, a researcher wouldn't be able to accurately predict any structure. Our model trains using all other Mordred despriptors in order to predict the value of these core desciptors. The model is versitle and is able to use other core structural descriptors should the user choose to do so. 
+We identifed 17 core structural Mordred descriptors that would allow a researcher to effectively deduce the structure of a molecule. Without these core structural descriptors, a researcher would not be able to accurately sythesize any structure. Our model trains using all of the other Mordred descriptors in order to predict the value of these core structural desciptors. The model is versatile and is able to integrate core structural descriptors as predictors should the user choose to do so. 
+
+## PCA
+We first attempted data reduction in order to identify the non-core Mordred descriptors that could explain the most variation in our data (i.e. the descriptors that best differentiate the chemical compounds from each other). This was done via Principal Component Analysis (PCA), a classic data reduction technique.
 
 ## The Steps
 1. We cleaned the data. We removed any irregularities from it, and ensured that it consisted only of numerical values. 
