@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[4]:
+# In[1]:
 
 
 import matplotlib.pyplot as plt
@@ -16,6 +16,9 @@ from sklearn.decomposition import PCA
 
 
 df = pd.read_csv('descriptors.csv')
+# dropping descriptor with strange values (does not actually affect PCA output)
+df=df.drop(['VR1_A'], axis=1)
+
 df.shape
 
 
@@ -102,7 +105,7 @@ principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2'])
 finalDf = pd.concat([principalDf, df[['ID']]], axis = 1)
 
 
-# In[13]:
+# In[10]:
 
 
 ### PLOT: 2 Component PCA ###
@@ -121,7 +124,7 @@ for target in targets:
 ax.grid()
 
 
-# In[10]:
+# In[11]:
 
 
 ### Variance explained by each component ###
@@ -129,7 +132,7 @@ pca.explained_variance_ratio_
     # OUTPUT: array([ 0.23354774,  0.11475039])
 
 
-# In[11]:
+# In[12]:
 
 
 ### FUNCTION to generate heat map of each PC explained by descriptors ###
@@ -157,7 +160,7 @@ d = [a,b,c]
 heat_map(d, 0, 1)
 
 
-# In[12]:
+# In[19]:
 
 
 ### How much each feature contributes to each component
@@ -167,7 +170,7 @@ a.shape
 #pd.DataFrame(pca.components_).to_csv("bla.csv")
 
 
-# In[13]:
+# In[20]:
 
 
 ##### Important Feature Extraction #####
@@ -176,7 +179,7 @@ a.shape
 def data_threshold(c,n, min, max):
     threshold = n
     d = c[1,:].astype(float) + c[2,:].astype(float)
-    d=d.reshape(1,1403)
+    d=d.reshape(1,c.shape[1])
     d = np.vstack((d, d, d))
     e=c[d > n]
     e=np.asarray(e)
@@ -197,7 +200,7 @@ def data_threshold(c,n, min, max):
     heat_map(final,min,max)
 
 
-# In[14]:
+# In[21]:
 
 
 #### TEST: Thresholding & Displaying Data
@@ -211,4 +214,10 @@ b.append(a[1])
 c = np.asarray(b)
 c.shape
 data_threshold(c, 0.08,0,0.08)
+
+
+# In[18]:
+
+
+print(c.shape)
 
