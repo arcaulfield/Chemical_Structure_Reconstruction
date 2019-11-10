@@ -12,7 +12,7 @@ from sklearn import preprocessing
 from sklearn.decomposition import PCA
 
 
-# In[5]:
+# In[2]:
 
 
 df = pd.read_csv('descriptors.csv')
@@ -22,7 +22,7 @@ df=df.drop(['VR1_A'], axis=1)
 df.shape
 
 
-# In[6]:
+# In[3]:
 
 
 # Separating out & normalizing the features
@@ -33,7 +33,7 @@ x = preprocessing.scale(x)
 y = df.iloc[:,0].values
 
 
-# In[7]:
+# In[4]:
 
 
 # features = list(df.columns)
@@ -42,7 +42,7 @@ targets = list(df['ID'])
 #targets
 
 
-# In[8]:
+# In[5]:
 
 
 pca = PCA(n_components=2)
@@ -99,7 +99,7 @@ principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2'])
     # (PC1: 23.4% of the variance; P2: 11.5% of the variance).
 
 
-# In[9]:
+# In[6]:
 
 
 finalDf = pd.concat([principalDf, df[['ID']]], axis = 1)
@@ -124,7 +124,7 @@ for target in targets:
 ax.grid()
 
 
-# In[11]:
+# In[7]:
 
 
 ### Variance explained by each component ###
@@ -132,16 +132,12 @@ pca.explained_variance_ratio_
     # OUTPUT: array([ 0.23354774,  0.11475039])
 
 
-# In[12]:
+# In[17]:
 
 
 ### FUNCTION to generate heat map of each PC explained by descriptors ###
 
 def heat_map(ar, n,m):
-#     a = ar[1]
-#     b = ar[2]
-    #c = ar[1:2,:]
-    #c = np.asarray(c)
     c = np.delete(ar,0,0)
     c = c.astype(np.float)
     plt.matshow(c,cmap='viridis',vmin=n,vmax=m)
@@ -149,6 +145,8 @@ def heat_map(ar, n,m):
     t = c.shape[1]
     
     plt.xticks(range(int(t)), ar[0])
+    plt.xlabel("Non-Core Mordred Descriptors", fontsize = 15)
+    plt.ylabel("Principal Components (PCs)", fontsize = 15)
     plt.colorbar()
     plt.show()
 
@@ -167,7 +165,6 @@ heat_map(d, 0, 1)
 pca.components_
 a = np.asarray(pca.components_)
 a.shape
-#pd.DataFrame(pca.components_).to_csv("bla.csv")
 
 
 # In[20]:
@@ -200,7 +197,7 @@ def data_threshold(c,n, min, max):
     heat_map(final,min,max)
 
 
-# In[21]:
+# In[22]:
 
 
 #### TEST: Thresholding & Displaying Data
@@ -213,7 +210,7 @@ b.append(a[0])
 b.append(a[1])
 c = np.asarray(b)
 c.shape
-data_threshold(c, 0.08,0,0.08)
+data_threshold(c, 0.08,0,1)
 
 
 # In[18]:
