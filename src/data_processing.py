@@ -25,5 +25,8 @@ def clean_mordred_data():
     # extract the key predictors for our dependent variables, leave the rest as explanatory variables
     mordred_x = df.drop(df.columns[df.columns.get_loc('nAromAtom'):df.columns.get_loc('nX') + 1], axis=1)
     mordred_y = df.iloc[:, df.columns.get_loc('nAromAtom'):df.columns.get_loc('nX') + 1]
+    mordred_y = mordred_y.drop('nSpiro', axis=1)
+    mordred_y = mordred_y.drop('nBridgehead', axis=1)
+
     return mordred_x.to_numpy()[:-1], mordred_y.to_numpy()[:-1]
 
