@@ -25,7 +25,7 @@ Using less than around 60 Mordred desciptors, the model poorly predicts all 17 c
 <img src="https://github.com/arcaulfield/Chemical_Structure_Reconstruction/blob/master/img/results.png" width="600"/>
 </p>
 
-
+A minimum of around 400 Modrerd desciptors are required to identify all 17 core structural descriptors and approximately reverse enginer the molecular structure. 
 ## Give it a try! 
 In order to run our model, do the following:
 1. Download the Mordred compound sets (1 through 3) and place them in the `data/` folder
