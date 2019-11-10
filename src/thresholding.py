@@ -1,7 +1,6 @@
 from src.data_processing import clean_mordred_data
 from src.multi_output_regressor import run_multi_output_regressor
 from sklearn.feature_selection import VarianceThreshold
-import numpy as np
 
 
 def find_threshold():

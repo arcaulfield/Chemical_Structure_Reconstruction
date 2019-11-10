@@ -20,7 +20,7 @@ def run_multi_output_regressor(X, y):
         y_pred = np.rint(mor.predict(x_valid))
 
         acc = accuracy_score(y_valid, y_pred)
-        print(f"Iteration {i+1}: L2 = {acc}")
+        print(f"Iteration {i+1}: L1 = {acc}")
         total_acc = total_acc + acc
 
     print(f"Average accuracy = {total_acc/kf.get_n_splits()}")
