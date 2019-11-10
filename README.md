@@ -1,5 +1,5 @@
 # Chemical_Structure_Reconstruction
-
+Project submission for Pharmahacks (2019)
 ## The Task
 We developped an algorithm that can identify the least amount of Mordred descriptors needed to reverse engineer chemical structures. 
 
@@ -9,7 +9,7 @@ We identifed 17 core structural Mordred descriptors that would allow a researche
 
 We first attempted data reduction via Principal Component Analysis (PCA) in order to identify the non-core Mordred descriptors that could explain the most variation in our data (i.e. the descriptors that best differentiate the molecules from each other). We did not find any descriptors that significantly affected our principal components.
 
-We then used a multiple linear regression model. Our model trains using all of the other Mordred descriptors in order to predict the value of these core structural desciptors. The model is versatile and is able to integrate core structural descriptors as predictors should the user choose to do so. 
+We then used a multiple output linear regression model. Our model trains using all of the non-core Mordred descriptors in order to predict the value of these core structural desciptors. The model is versatile and is able to integrate other core structural descriptors as predictors should the user choose to do so. 
 
 
 ## The Steps
@@ -21,7 +21,15 @@ We then used a multiple linear regression model. Our model trains using all of t
 
 ## Results
 
+<p align="center">
+<img src="https://github.com/arcaulfield/Chemical_Structure_Reconstruction/blob/master/img/results.png" width="400"/>
+</p>
+
+
 ## Give it a try! 
 In order to run our model, do the following:
+1. Download the Mordred compound sets (1 through 3) and place them in the `data/` folder
+2. Open the `src/config.py` folder and ensure that the `data_path` and `results_path` are correct. 
+3. Run the main function in `src/thresholding.py`. 
 
 
