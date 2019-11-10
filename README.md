@@ -5,7 +5,7 @@ We developped an algorithm that can identify the least amount of Mordred descrip
 
 
 ## Our Approach
-We identifed 17 core structural Mordred descriptors that would allow a researcher to effectively deduce the structure of a molecule. Without these core structural descriptors, a researcher would not be able to accurately sythesize any structure.
+We identifed 17 core structural Mordred descriptors that would allow a researcher to effectively deduce the structure of a molecule. Without any of these core structural descriptors, a researcher would not be able to accurately sythesize the structure.
 
 We first attempted data reduction via Principal Component Analysis (PCA) in order to identify the non-core Mordred descriptors that could explain the most variation in our data (i.e. the descriptors that best differentiate the molecules from each other). We did not find any descriptors that significantly affected our principal components.
 
