@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[4]:
 
 
 import matplotlib.pyplot as plt
@@ -12,14 +12,14 @@ from sklearn import preprocessing
 from sklearn.decomposition import PCA
 
 
-# In[2]:
+# In[5]:
 
 
 df = pd.read_csv('descriptors.csv')
 df.shape
 
 
-# In[3]:
+# In[6]:
 
 
 # Separating out & normalizing the features
@@ -30,7 +30,7 @@ x = preprocessing.scale(x)
 y = df.iloc[:,0].values
 
 
-# In[5]:
+# In[7]:
 
 
 # features = list(df.columns)
@@ -39,7 +39,7 @@ targets = list(df['ID'])
 #targets
 
 
-# In[6]:
+# In[8]:
 
 
 pca = PCA(n_components=2)
@@ -47,41 +47,56 @@ principalComponents = pca.fit_transform(x)
 principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2'])
 
 
+# In[ ]:
+
+
+##### TEST: How many components to select ##### 
+
+
 # In[185]:
 
 
-##### Testing 3 components ##### 
-# pca = PCA(n_components=3)
-# principalComponents = pca.fit_transform(x)
-# principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2','PC3'])
-# pca.explained_variance_ratio_
-    # OUPUT: array([ 0.23354774,  0.11475039,  0.06810382])
+### Testing 3 components ### 
+    # pca = PCA(n_components=3)
+    # principalComponents = pca.fit_transform(x)
+    # principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2','PC3'])
+    # pca.explained_variance_ratio_
+        # OUPUT: array([ 0.23354774,  0.11475039,  0.06810382])
 
 
 # In[186]:
 
 
-##### Testing 5 components ##### 
-# pca = PCA(n_components=5)
-# principalComponents = pca.fit_transform(x)
-# principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2','PC3','PC4','PC5'])
-# pca.explained_variance_ratio_
-    # OUTPUT: array([ 0.23354774,  0.11475039,  0.06810382,  0.0412066 ,  0.03132345])
+### Testing 5 components ###
+    # pca = PCA(n_components=5)
+    # principalComponents = pca.fit_transform(x)
+    # principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2','PC3','PC4','PC5'])
+    # pca.explained_variance_ratio_
+        # OUTPUT: array([ 0.23354774,  0.11475039,  0.06810382,  0.0412066 ,  0.03132345])
 
 
 # In[187]:
 
 
-##### Testing 7 components ##### 
-# pca = PCA(n_components=7)
-# principalComponents = pca.fit_transform(x)
-# principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2','PC3','PC4','PC5','PC6','PC7'])
-# pca.explained_variance_ratio_
-    # OUTPUT: array([ 0.23354774,  0.11475039,  0.06810382,  0.04120661,  0.03132366,
-        #0.02704538,  0.02453726])
+### Testing 7 components ### 
+    # pca = PCA(n_components=7)
+    # principalComponents = pca.fit_transform(x)
+    # principalDf = pd.DataFrame(data = principalComponents, columns = ['PC1', 'PC2','PC3','PC4','PC5','PC6','PC7'])
+    # pca.explained_variance_ratio_
+        # OUTPUT: array([ 0.23354774,  0.11475039,  0.06810382,  0.04120661,  0.03132366,
+            #0.02704538,  0.02453726])
 
 
-# In[7]:
+# In[ ]:
+
+
+### Conclusion ### 
+    # We selected the first two principal components (PCs) because the additional components
+    # explain less than 7% of the variance 
+    # (PC1: 23.4% of the variance; P2: 11.5% of the variance).
+
+
+# In[9]:
 
 
 finalDf = pd.concat([principalDf, df[['ID']]], axis = 1)
@@ -106,7 +121,7 @@ for target in targets:
 ax.grid()
 
 
-# In[27]:
+# In[10]:
 
 
 ### Variance explained by each component ###
@@ -114,7 +129,7 @@ pca.explained_variance_ratio_
     # OUTPUT: array([ 0.23354774,  0.11475039])
 
 
-# In[28]:
+# In[11]:
 
 
 ### FUNCTION to generate heat map of each PC explained by descriptors ###
@@ -142,7 +157,7 @@ d = [a,b,c]
 heat_map(d, 0, 1)
 
 
-# In[29]:
+# In[12]:
 
 
 ### How much each feature contributes to each component
@@ -152,10 +167,11 @@ a.shape
 #pd.DataFrame(pca.components_).to_csv("bla.csv")
 
 
-# In[39]:
+# In[13]:
 
 
-#### FUNCTION: Thresholding & Displaying the Data
+##### Important Feature Extraction #####
+    # Function: Thresholds & Displays the Data
     # c: array where rows = components, columns = descriptors, entries = contribution of descriptor to respective component
 def data_threshold(c,n, min, max):
     threshold = n
@@ -181,7 +197,7 @@ def data_threshold(c,n, min, max):
     heat_map(final,min,max)
 
 
-# In[41]:
+# In[14]:
 
 
 #### TEST: Thresholding & Displaying Data
