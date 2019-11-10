@@ -6,6 +6,8 @@ import sys
 from rdkit.Chem.rdmolops import *
 from src.config import data_path
 import os
+import numpy as np
+import pandas as pd
 
 
 def sdf_to_desc(file_name):
@@ -30,7 +32,7 @@ def sdf_to_desc(file_name):
     # save data frame
     calc.pandas(mols).to_csv(os.path.join(data_path, "mordred_files", file_name + ".csv"))
 
-def sdf_to_fp(filename):
+def sdf_to_fp(file_name):
     molecules = Chem.SDMolSupplier(os.path.join(data_path, file_name + ".sdf"))
     mols=[]
     for mol in molecules:
