@@ -1,5 +1,5 @@
 # Chemical_Structure_Reconstruction
-Project submission for Pharmahacks (2019)
+Winning project submission for Challenge 1 of Pharmahacks (2019). 
 ## The Task
 We developped an algorithm that can identify the least amount of Mordred descriptors needed to reverse engineer chemical structures. 
 
